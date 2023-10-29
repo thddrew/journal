@@ -12,7 +12,7 @@ import type {
 export const prerender = true;
 
 export const getStaticPaths = (async () => {
-  const allPosts = await Astro.glob<Post>("../posts/*.md");
+  const allPosts = await Astro.glob<Post>("../posts/*.mdx");
 
   const tags: string[] = [
     ...new Set(allPosts.flatMap((post) => post.frontmatter.tags ?? [])),

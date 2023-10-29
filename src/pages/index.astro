@@ -6,7 +6,7 @@ import type { Post } from "@/types/posts";
 
 const title = "thddrew's journal";
 
-const allPosts = await Astro.glob<Post>("./posts/*.md");
+const allPosts = await Astro.glob<Post>("./posts/*.mdx");
 const sortedPosts = getSortedPosts(allPosts);
 ---
 

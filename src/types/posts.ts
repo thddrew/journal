@@ -1,4 +1,4 @@
-import type { MarkdownInstance } from "astro";
+import type { MDXInstance } from "astro";
 
 export type Post = {
   layout: string;
@@ -14,4 +14,4 @@ export type Post = {
   tags: string[];
 };
 
-export type PostsGlob = MarkdownInstance<Post>[];
+export type PostsGlob = MDXInstance<Post>[];
