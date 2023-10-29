@@ -1,21 +1,29 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import '@/styles/global.css'
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+
+const title = "thddrew's journal";
+
+const allPosts = await Astro.glob("./posts/*.md");
 ---
 
-<Layout title="Welcome to Astro Journal.">
-	<main>
-		<h1>Welcome to Astro Journal</h1>
-		<p>
-			To get started, open the directory <code>src/pages</code> in your project.
-		</p>
-		<ul role="list" class="not-prose">
-			<Card
-				href="/about"
-				title="About"
-				body="To about page."
-			/>
-		</ul>
-	</main>
+<Layout title={title}>
+  <main>
+    <h1>{title}</h1>
+    <ul
+      role="list"
+      class="not-prose space-y-10"
+    >
+      {
+        allPosts.map((post) => (
+          <Card
+            href={post.url ?? "/404"}
+            src={post.frontmatter.image.url}
+            title={post.frontmatter.title}
+            body={post.frontmatter.description}
+          />
+        ))
+      }
+    </ul>
+  </main>
 </Layout>

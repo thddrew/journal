@@ -14,4 +14,7 @@ export default defineConfig({
   ],
   output: "server",
   adapter: vercel(),
+  redirects: {
+    "/tags": "/tags/astro",
+  },
 });

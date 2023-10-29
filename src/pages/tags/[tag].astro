@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+import { Combobox } from "@/components/ui/combobox";
+import type { Post } from "@/types/posts";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+} from "astro";
+
+export const prerender = true;
+
+export const getStaticPaths = async () => {
+  const allPosts = await Astro.glob<Post>("../posts/*.md");
+
+  const tags: string[] = [
+    ...new Set(allPosts.flatMap((post) => post.frontmatter.tags ?? [])),
+  ];
+
+  return tags.map((tag) => ({
+    params: {
+      tag,
+    },
+    props: {
+      tags: tags.map((tag) => ({ label: tag, value: tag })),
+      allPosts: allPosts.filter((post) => post.frontmatter.tags?.includes(tag)),
+    },
+  }));
+};
+
+const { tag } = Astro.params;
+const { tags, allPosts } = Astro.props;
+---
+
+<BaseLayout title={tag ?? "tag"}>
+  <div class="flex gap-2 items-center">
+    <p>Posts tagged with</p>
+    <Combobox
+      initialValue={tag ?? ""}
+      options={tags}
+      client:load
+    />
+  </div>
+  <div class="h-6"></div>
+  <ul
+    role="list"
+    class="not-prose space-y-10"
+  >
+    {
+      allPosts.map((post) => (
+        <Card
+          href={post.url ?? "/404"}
+          title={post.frontmatter.title}
+          body={post.frontmatter.description}
+          src={post.frontmatter.image.url}
+        />
+      ))
+    }
+  </ul>
+</BaseLayout>
