@@ -19,6 +19,9 @@ export default defineConfig({
     webAnalytics: {
       enabled: true,
     },
+    speedInsights: {
+      enabled: true,
+    },
   }),
   redirects: {
     "/tags": "/tags/astro",
