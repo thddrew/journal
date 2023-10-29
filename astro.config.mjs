@@ -7,12 +7,20 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind({
-    applyBaseStyles: false
-  }), mdx()],
+  integrations: [
+    react(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    mdx(),
+  ],
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   redirects: {
-    "/tags": "/tags/astro"
-  }
+    "/tags": "/tags/astro",
+  },
 });
