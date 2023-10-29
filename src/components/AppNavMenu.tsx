@@ -1,17 +1,15 @@
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ModeToggle } from "./ModeToggle";
 import { cn } from "@/lib/utils";
-import Card from "./Card.astro";
+import type { PostsGlob } from "@/types/posts";
 
 const NavMenuItem = ({
   href,
@@ -30,7 +28,7 @@ const NavMenuItem = ({
   </NavigationMenuLink>
 );
 
-export function AppNavMenu({ recentPosts }) {
+export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
   return (
     <NavigationMenu className="mx-auto my-14 not-prose">
       <NavigationMenuList className="gap-3">

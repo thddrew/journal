@@ -14,4 +14,4 @@ export type Post = {
   tags: string[];
 };
 
-export type PostsGlob = MarkdownInstance<Post>;
+export type PostsGlob = MarkdownInstance<Post>[];

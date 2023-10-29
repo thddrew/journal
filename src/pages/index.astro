@@ -1,10 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
+import { getSortedPosts } from "@/lib/getSortedPosts";
+import type { Post } from "@/types/posts";
 
 const title = "thddrew's journal";
 
-const allPosts = await Astro.glob("./posts/*.md");
+const allPosts = await Astro.glob<Post>("./posts/*.md");
+const sortedPosts = getSortedPosts(allPosts);
 ---
 
 <Layout title={title}>
@@ -15,7 +18,7 @@ const allPosts = await Astro.glob("./posts/*.md");
       class="not-prose space-y-10"
     >
       {
-        allPosts.map((post) => (
+        sortedPosts.map((post) => (
           <Card
             href={post.url ?? "/404"}
             src={post.frontmatter.image.url}

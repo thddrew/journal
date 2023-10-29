@@ -2,16 +2,16 @@
 import BaseLayout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 import { Combobox } from "@/components/ui/combobox";
-import type { Post } from "@/types/posts";
+import type { Post, PostsGlob } from "@/types/posts";
 import type {
   InferGetStaticParamsType,
-  InferGetStaticPropsType,
+  // InferGetStaticPropsType,
   GetStaticPaths,
 } from "astro";
 
 export const prerender = true;
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = (async () => {
   const allPosts = await Astro.glob<Post>("../posts/*.md");
 
   const tags: string[] = [
@@ -27,10 +27,18 @@ export const getStaticPaths = async () => {
       allPosts: allPosts.filter((post) => post.frontmatter.tags?.includes(tag)),
     },
   }));
-};
+}) satisfies GetStaticPaths;
 
-const { tag } = Astro.params;
-const { tags, allPosts } = Astro.props;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+// BUG: this doesn't work?
+// type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+interface Props {
+  tags: { label: string; value: string }[];
+  allPosts: PostsGlob;
+}
+
+const { tag } = Astro.params as Params;
+const { tags, allPosts } = Astro.props as Props;
 ---
 
 <BaseLayout title={tag ?? "tag"}>
@@ -48,6 +56,7 @@ const { tags, allPosts } = Astro.props;
     class="not-prose space-y-10"
   >
     {
+      // BUG: type Props does not work for Astro.props
       allPosts.map((post) => (
         <Card
           href={post.url ?? "/404"}
