@@ -4,15 +4,15 @@ import Card from "../../components/Card.astro";
 import { Combobox } from "@/components/ui/combobox";
 import type { Post, PostsGlob } from "@/types/posts";
 import type {
-  InferGetStaticParamsType,
-  // InferGetStaticPropsType,
   GetStaticPaths,
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
 } from "astro";
 
 export const prerender = true;
 
 export const getStaticPaths = (async () => {
-  const allPosts = await Astro.glob<Post>("../posts/*.mdx");
+  const allPosts: PostsGlob = await Astro.glob("../posts/*.mdx");
 
   const tags: string[] = [
     ...new Set(allPosts.flatMap((post) => post.frontmatter.tags ?? [])),
@@ -30,15 +30,10 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-// BUG: this doesn't work?
-// type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-interface Props {
-  tags: { label: string; value: string }[];
-  allPosts: PostsGlob;
-}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { tag } = Astro.params as Params;
-const { tags, allPosts } = Astro.props as Props;
+const { tags, allPosts } = Astro.props;
 ---
 
 <BaseLayout title={tag ?? "tag"}>

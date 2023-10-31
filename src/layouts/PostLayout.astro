@@ -4,9 +4,17 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout title={frontmatter.title}>
-  <img
+  <!-- <img
     src={frontmatter.image.url}
     alt={frontmatter.title}
-  />
+    class="mx-auto"
+  /> -->
+  <div
+    style={{
+      backgroundImage: `url(${frontmatter.image.url})`,
+    }}
+    class="bg-center bg-contain bg-no-repeat h-[500px] w-full"
+  >
+  </div>
   <slot />
 </Layout>

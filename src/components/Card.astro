@@ -14,13 +14,20 @@ const { href, title, body, src } = Astro.props;
 <li class="p-2 rounded-lg transition-all hover:ring-1 ring-gray-700">
   <a href={href}>
     <div class="flex gap-10">
-      <Image
+      <div
+        style={{
+          backgroundImage: `url(${src})`,
+        }}
+        class="bg-center bg-cover bg-no-repeat h-[225px] w-[225px]"
+      >
+      </div>
+      <!-- <Image
         src={src}
         class="rounded-md shrink-0 h-[225px] w-[225px] object-cover"
         alt="TODO:Thumbnail"
         width={225}
         height={225}
-      />
+      /> -->
       <div class="p-2">
         <h2 class="text-4xl font-bold pb-4">
           {title}

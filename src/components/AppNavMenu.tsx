@@ -62,10 +62,16 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
                 <li key={post.frontmatter.title}>
                   <NavMenuItem href={`/posts/${post.frontmatter.link}`}>
                     <div className="flex items-center gap-3">
-                      <img
+                      {/* <img
                         src={post.frontmatter.image.url}
                         className="object-cover shrink-0 h-[60px] w-[80px] rounded-md"
-                      />
+                      /> */}
+                      <div
+                        style={{
+                          backgroundImage: `url(${post.frontmatter.image.url})`,
+                        }}
+                        className="bg-center bg-cover bg-no-repeat h-[60px] w-[80px]"
+                      ></div>
                       <p className="whitespace-nowrap">
                         {post.frontmatter.title}
                       </p>
