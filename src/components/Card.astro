@@ -1,38 +1,37 @@
 ---
-import { Image } from "astro:assets";
 interface Props {
   title: string;
   href: string;
   src: string;
+  alt: string;
   body?: string;
   mini?: boolean;
 }
 
-const { href, title, body, src } = Astro.props;
+const { href, title, body, src, alt } = Astro.props;
 ---
 
-<li class="p-2 rounded-lg transition-all hover:ring-1 ring-gray-700">
+<li class="p-1 rounded-lg transition-all hover:ring-1 ring-gray-700">
   <a href={href}>
     <div class="flex gap-10">
+      {/* For accessibility and SEO? */}
+      <img
+        src={src}
+        class="hidden"
+        alt={alt}
+      />
       <div
         style={{
           backgroundImage: `url(${src})`,
         }}
-        class="bg-center bg-cover bg-no-repeat h-[225px] w-[225px]"
+        class="rounded-md shrink-0 bg-center bg-cover bg-no-repeat w-[80px] h-[80px] md:w-[120px] md:h-[120px] lg:w-[225px] lg:h-[225px]"
       >
       </div>
-      <!-- <Image
-        src={src}
-        class="rounded-md shrink-0 h-[225px] w-[225px] object-cover"
-        alt="TODO:Thumbnail"
-        width={225}
-        height={225}
-      /> -->
       <div class="p-2">
         <h2 class="text-4xl font-bold pb-4">
           {title}
         </h2>
-        <p class="text-muted-foreground line-clamp-4">
+        <p class="text-sm md:text-base text-muted-foreground line-clamp-4">
           {body}
         </p>
         <!-- <Fragment

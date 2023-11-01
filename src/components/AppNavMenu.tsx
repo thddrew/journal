@@ -30,7 +30,7 @@ const NavMenuItem = ({
 
 export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
   return (
-    <NavigationMenu className="mx-auto my-14 not-prose">
+    <NavigationMenu className="mx-auto my-6 md:my-8 not-prose">
       <NavigationMenuList className="gap-3">
         <NavigationMenuItem>
           <NavigationMenuLink
@@ -57,21 +57,23 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="p-4 min-w-max space-y-3">
+            <ul className="p-4 w-max max-w-xs space-y-3">
               {recentPosts.map((post) => (
                 <li key={post.frontmatter.title}>
                   <NavMenuItem href={`/posts/${post.frontmatter.link}`}>
                     <div className="flex items-center gap-3">
-                      {/* <img
-                        src={post.frontmatter.image.url}
-                        className="object-cover shrink-0 h-[60px] w-[80px] rounded-md"
-                      /> */}
                       <div
                         style={{
                           backgroundImage: `url(${post.frontmatter.image.url})`,
                         }}
-                        className="bg-center bg-cover bg-no-repeat h-[60px] w-[80px]"
+                        className="bg-center bg-cover bg-no-repeat h-[60px] w-[60px]"
                       ></div>
+                      {/* For accessibility and SEO? */}
+                      <img
+                        src={post.frontmatter.image.url}
+                        className="hidden"
+                        alt={post.frontmatter.image.alt}
+                      />
                       <p className="whitespace-nowrap">
                         {post.frontmatter.title}
                       </p>
