@@ -57,7 +57,7 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="p-4 w-max max-w-xs space-y-3">
+            <ul className="p-3 w-max max-w-xs">
               {recentPosts.map((post) => (
                 <li key={post.frontmatter.title}>
                   <NavMenuItem href={`/posts/${post.frontmatter.link}`}>

@@ -11,9 +11,11 @@ interface Props {
 const { href, title, body, src, alt } = Astro.props;
 ---
 
-<li class="p-1 rounded-lg transition-all hover:ring-1 ring-gray-700">
+<li
+  class="p-3 rounded-lg transition-all block select-none space-y-1 leading-none no-underline outline-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+>
   <a href={href}>
-    <div class="flex gap-10">
+    <div class="flex gap-3 lg:gap-10">
       {/* For accessibility and SEO? */}
       <img
         src={src}
@@ -27,8 +29,8 @@ const { href, title, body, src, alt } = Astro.props;
         class="rounded-md shrink-0 bg-center bg-cover bg-no-repeat w-[80px] h-[80px] md:w-[120px] md:h-[120px] lg:w-[225px] lg:h-[225px]"
       >
       </div>
-      <div class="p-2">
-        <h2 class="text-4xl font-bold pb-4">
+      <div class="space-y-1">
+        <h2 class="text-xl lg:text-2xl font-bold">
           {title}
         </h2>
         <p class="text-sm md:text-base text-muted-foreground line-clamp-4">

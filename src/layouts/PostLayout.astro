@@ -4,17 +4,12 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout title={frontmatter.title}>
-  <img
-    src={frontmatter.image.url}
-    alt={frontmatter.image.alt}
-    class="hidden"
-  />
-  <div
-    style={{
-      backgroundImage: `url(${frontmatter.image.url})`,
-    }}
-    class="bg-center bg-contain bg-no-repeat h-[500px] w-full"
-  >
+  <div class="flex justify-center">
+    <img
+      src={frontmatter.image.url}
+      alt={frontmatter.image.alt}
+    />
   </div>
+  <h1>{frontmatter.title}</h1>
   <slot />
 </Layout>
