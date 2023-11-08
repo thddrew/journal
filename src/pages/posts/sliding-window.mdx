@@ -1,0 +1,19 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: Sliding Window Review
+link: sliding-window
+pubDate: 2023-11-07
+description: 'Reviewing the sliding window technique.'
+author: 'thddrew'
+image:
+    url: 'https://i.imgur.com/ltV7CEu.png'
+    alt: 'An 8 bit style wave emoji.'
+tags: ["leetcode", "learning"]
+---
+{/* export const prerender = true; */}
+
+Important points to remember:
+<ul>
+    <li>The sliding window works in O(n) time because we know the last seen index of each char using the hashmap.</li>
+    <li>We can skip substrings computed before the repeated character and after the repeated character because we know that each of those substrings will contain both duplicates no matter what.</li>
+</ul>

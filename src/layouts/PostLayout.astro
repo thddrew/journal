@@ -4,12 +4,12 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout title={frontmatter.title}>
-  <div class="flex justify-center">
+  <!-- <div class="flex justify-center">
     <img
       src={frontmatter.image.url}
       alt={frontmatter.image.alt}
     />
-  </div>
+  </div> -->
   <h1>{frontmatter.title}</h1>
   <slot />
   <div class="h-12"></div>
