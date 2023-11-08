@@ -14,6 +14,11 @@ tags: ["leetcode", "learning"]
 
 Important points to remember:
 <ul>
-    <li>The sliding window works in O(n) time because we know the last seen index of each char using the hashmap.</li>
-    <li>We can skip substrings computed before the repeated character and after the repeated character because we know that each of those substrings will contain both duplicates no matter what.</li>
+    <li>The sliding window works in O(n) time because we visit each character at most twice. The hashmap of last seen indices helps us skip validating every substring.</li>
+    <li>We can skip substrings computed before the repeated character and after the repeated character because we know that every one of those substrings will contain both duplicates no matter what.</li>
+</ul>
+
+Useful links:
+<ul>
+    <li><a href="https://www.youtube.com/watch?v=pY2dYa1m2VM">Algo Engine video</a></li>
 </ul>
