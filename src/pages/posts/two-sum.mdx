@@ -1,0 +1,52 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: Two Sum Review
+link: two-sum
+pubDate: 2023-11-15
+description: 'Reviewing the two sum problem.'
+author: 'thddrew'
+image:
+    url: 'https://i.imgur.com/ltV7CEu.png'
+    alt: 'An 8 bit style wave emoji.'
+tags: ["leetcode", "learning"]
+---
+{/* export const prerender = true; */}
+
+<ul>
+    <li>
+        Checking the complement of the target and the current number is a good validation check.
+    </li>
+    <li>
+        Trading space for speed is a common way to optimize algorithms.
+    </li>
+    <li>
+        In the two-pass hashtable method, the key point is to have a way to lookup the complement's index in constant time O(1).
+        <ul>
+            <li>A <b>key-value record</b> (hashtable) can be used to lookup the complement (key) to get its index (value) without having to iterate through the array again.</li>
+            <li>
+                The tricky part was determining what the key and value were. A mental model for this could be:
+                <blockquote>
+                🧠 I need to find an index in the array without looping through again. I know I can get a constant time lookup using a hashtable. What can I compute as my key that will give me the index I want in the array?
+                </blockquote>
+            </li>
+        </ul>
+    </li>
+    <li>
+        The two-pass hashtable can be improved to one-pass by doing the lookup while building the hashtable.
+    </li>
+    <li>
+        What would help us come up with this optimization ourselves?
+        <ul>
+            <blockquote>
+                One pattern to recognize is that we do not need the full hashtable to check for the complement.
+                Even if we don't find the complement in the early part the array, the inverse complement will be found later.
+                ex. [1, 2, 3, 4, 5] target = 4. We won't see 3 when we start the loop but we will see 1 when we get to 3 eventually.
+            </blockquote>
+        </ul>
+    </li>
+</ul>
+
+{/* Useful links:
+<ul>
+    <li><a href="https://www.youtube.com/watch?v=VEPCm3BCtik">What is the Two-Pointers Technique & How to use it? | Two-Pointers Approach Explained | Geekific</a></li>
+</ul> */}
