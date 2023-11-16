@@ -15,7 +15,7 @@ export default defineConfig({
     }),
     mdx(),
   ],
-  output: "server",
+  output: "static",
   adapter: vercel({
     webAnalytics: {
       enabled: true,
