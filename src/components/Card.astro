@@ -3,12 +3,13 @@ interface Props {
   title: string;
   href: string;
   src: string;
+  date: string;
   alt: string;
   body?: string;
   mini?: boolean;
 }
 
-const { href, title, body, src, alt } = Astro.props;
+const { href, title, date, body, src, alt } = Astro.props;
 ---
 
 <li
@@ -29,10 +30,20 @@ const { href, title, body, src, alt } = Astro.props;
         class="rounded-md shrink-0 bg-center bg-cover bg-no-repeat w-[80px] h-[80px] md:w-[120px] md:h-[120px] lg:w-[225px] lg:h-[225px]"
       >
       </div>
-      <div class="space-y-1">
-        <h2 class="text-xl lg:text-2xl font-bold">
+      <div class="space-y-3">
+        <h2 class="text-xl lg:text-2xl font-bold mb-1">
           {title}
         </h2>
+        <time class="text-sm text-muted-foreground">
+          {
+            new Date(date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+        <br />
         <p class="text-sm md:text-base text-muted-foreground line-clamp-4">
           {body}
         </p>

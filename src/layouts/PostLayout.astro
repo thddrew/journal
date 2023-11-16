@@ -4,13 +4,28 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout title={frontmatter.title}>
-  <!-- <div class="flex justify-center">
+  <div class="flex items-center gap-4">
     <img
       src={frontmatter.image.url}
       alt={frontmatter.image.alt}
+      width={60}
+      height={60}
+      class="rounded-sm"
     />
-  </div> -->
-  <h1>{frontmatter.title}</h1>
+    <h1 class="m-0">{frontmatter.title}</h1>
+  </div>
+  <time
+    class="block pb-6 text-muted-foreground"
+    datetime={new Date(frontmatter.pubDate).toISOString()}
+  >
+    {
+      new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    }
+  </time>
   <slot />
   <div class="h-12"></div>
 </Layout>
