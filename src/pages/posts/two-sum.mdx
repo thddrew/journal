@@ -12,19 +12,32 @@ tags: ["leetcode", "learning"]
 ---
 export const prerender = true;
 
+<i>Make sure to implement the brute force solution first.</i>
 <ul>
     <li>
-        Checking the complement of the target and the current number is a good validation check.
+        Trading space for speed is a common way to optimize algorithms. We will review the two-pass and the one-pass hashtable methods.
     </li>
     <li>
-        Trading space for speed is a common way to optimize algorithms.
-    </li>
-    <li>
-        In the two-pass hashtable method, the key point is to have a way to lookup the complement's index in constant time O(1).
+        The two-pass hashtable method can be used to solve in O(2n) time, which is analyzed as O(n).
         <ul>
-            <li>A <b>key-value record</b> (hashtable) can be used to lookup the complement (key) to get its index (value) without having to iterate through the array again.</li>
             <li>
-                The tricky part was determining what the key and value were. A mental model for this could be:
+            <b>Why a hashtable?</b>\
+            The hashtable can be used to find data in constant time. This is a good way to "track" data that exists in the array.
+            </li>
+            <li>
+            <b>Why the complement?</b>\
+            When we store the complement in the hashtable, we are also storing the index of the matching pair for that summation. Therefore, if we come across an element in the array that
+            exists in the hashtable, we know that it is the complement value of the pair. We are essentially building a dictionary of:
+            \
+            \
+            <code>\{B: index of A\}</code>
+            \
+            \
+            Since we need pairs A and B where A + B = target, and in each iteration we assume we have either A or B (ex. A), we can compute the other (ex. B) by the complement: target - A = B.
+            So now, we are looking for the other pair (ex. B) in the array to get A + B = target.
+            </li>
+            <li>
+                The tricky part was determining what key and value meant. A mental model for this could be:
                 <blockquote>
                 🧠 I need to find an index in the array without looping through again. I know I can get a constant time lookup using a hashtable. What can I compute as my key that will give me the index I want in the array?
                 </blockquote>
@@ -32,18 +45,14 @@ export const prerender = true;
         </ul>
     </li>
     <li>
-        The two-pass hashtable can be improved to one-pass by doing the lookup while building the hashtable.
-    </li>
-    <li>
+        The two-pass hashtable can be improved to one-pass by doing the lookup while building the hashtable.\
         What would help us come up with this optimization ourselves?
-        <ul>
-            <blockquote>
-                One pattern to recognize is that we do not need the full hashtable to check for the complement.
-                Even if we don't find the complement in the early part the array, the inverse complement will be found later.
-                ex. [1, 2, 3, 4, 5] target = 4. We won't see 3 when we start the loop but we will see 1 when we get to 3 eventually.
-            </blockquote>
-        </ul>
     </li>
+    <blockquote>
+        One pattern to recognize is that we do not need the full hashtable to check for the complement.
+        Even if we don't find the complement in the early iterations, one of A or B will be found later.
+        ex. [1, 2, 3, 4, 5] target = 4. In the beginning of the loop, we won't see 3 but we will see 1 when we get to 3 eventually.
+    </blockquote>
 </ul>
 
 {/* Useful links:
