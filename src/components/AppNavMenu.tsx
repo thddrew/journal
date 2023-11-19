@@ -30,7 +30,7 @@ const NavMenuItem = ({
 
 export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
   return (
-    <NavigationMenu className="mx-auto my-6 md:my-8 not-prose">
+    <NavigationMenu className="mx-auto py-6 md:py-8 not-prose">
       <NavigationMenuList className="gap-3">
         <NavigationMenuItem>
           <NavigationMenuLink
@@ -57,7 +57,7 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="p-3 min-w-[300px] w-max max-w-xs">
+            <ul className="p-3 min-w-[350px] w-max max-w-[100dvw]">
               {recentPosts.map((post) => (
                 <li key={post.frontmatter.title}>
                   <NavMenuItem href={`/posts/${post.frontmatter.link}`}>
@@ -66,7 +66,7 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
                         style={{
                           backgroundImage: `url(${post.frontmatter.image.url})`,
                         }}
-                        className="bg-center bg-cover bg-no-repeat h-[60px] w-[60px]"
+                        className="bg-center bg-cover bg-no-repeat h-[60px] w-[60px] shrink-0"
                       ></div>
                       {/* For accessibility and SEO? */}
                       <img
@@ -74,9 +74,27 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
                         className="hidden"
                         alt={post.frontmatter.image.alt}
                       />
-                      <p className="whitespace-nowrap">
-                        {post.frontmatter.title}
-                      </p>
+                      <div>
+                        <p className="leading-tight">
+                          {post.frontmatter.title}
+                        </p>
+                        <p>
+                          <time
+                            className="block text-sm text-muted-foreground"
+                            dateTime={new Date(
+                              post.frontmatter.pubDate
+                            ).toISOString()}
+                          >
+                            {new Date(
+                              post.frontmatter.pubDate
+                            ).toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </time>
+                        </p>
+                      </div>
                     </div>
                   </NavMenuItem>
                 </li>

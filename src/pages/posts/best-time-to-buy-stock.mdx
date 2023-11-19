@@ -1,0 +1,66 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: Best Time To Buy and Sell Review
+link: best-time-to-buy-stock
+pubDate: 2023-11-18
+description: 'Reviewing the "Best Time To Buy and Sell" problem.'
+author: 'thddrew'
+image:
+    url: 'https://i.imgur.com/ltV7CEu.png'
+    alt: 'An 8 bit style wave emoji.'
+tags: ["leetcode", "learning"]
+---
+export const prerender = true;
+
+<i>
+Make sure to implement the brute force solution first.\
+The brute methods requires two loops checking every subarray.
+</i>
+
+<ul>
+    <li>
+        We will review the one pass solution using two pointers starting at the first and second indices.\
+        We increase the right pointer until we find a value that is than the left pointer.\
+        At that point, we move the left pointer to the right pointer's position and repeat the process.
+    </li>
+    <li>
+        <b>Why do we use two pointers?</b>\
+        Using two pointers allows us to evaluate two values at one time (we need the difference between two values).
+        Along with the difference, it can also keep track of the minimum value in the array.\
+        This question is simply asking us to find the biggest difference between two values:\
+        ```
+        array[j] - array[i]` where `i < j`
+        ```
+    </li>
+    <li>
+        <b>Why do we not need to evaluate every possible subarray?</b>\
+        There are several reasons why we do not need to evaluate every subarray.
+        1. We only need the largest difference so it makes sense to subtract the largest value from the smallest value in the array.
+           But only if the left value is smaller than the right value.
+           This means when we find a new minimum value, we only care about the values after that minimum value.
+        2. Since we keep the left pointer as the minimum, this means as the right pointer increments, we are checking each value against the minimum.
+
+            ```
+                Array: [2, 5, 7, 6, ...]
+                        ^        ^
+                       left    right
+
+                ex. 6 - 2 = 4 ❌
+                    7 - 5 = 2 ❌
+                    7 - 2 = 5 ✅ (index 2 - index 0)
+            ```
+        3. Because the above are true, when the right pointer meets a new minimum, we can make that the new left pointer and check the values after since we can't look back in time.
+
+            ```
+                Array: [3, 4, 5, 6, 1, 7, 8, 9]
+                        ^           ^
+                       left       right
+
+                // right < left so we move left to right.
+
+                Array: [3, 4, 5, 6, 1, 7, 8, 9]
+                                    ^  ^
+                                 left  right
+            ```
+    </li>
+</ul>

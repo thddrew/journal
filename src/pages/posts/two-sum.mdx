@@ -28,11 +28,11 @@ export const prerender = true;
             <b>Why the complement?</b>\
             When we store the complement in the hashtable, we are also storing the index of the matching pair for that summation. Therefore, if we come across an element in the array that
             exists in the hashtable, we know that it is the complement value of the pair. We are essentially building a dictionary of:
-            \
-            \
-            <code>{`B: index of A`}</code>
-            \
-            \
+            ```
+            Record<number, number>
+            ---
+            { B: <index of A> }
+            ```
             Since we need pairs A and B where A + B = target, and in each iteration we assume we have either A or B (ex. A), we can compute the other (ex. B) by the complement: target - A = B.
             So now, we are looking for the other pair (ex. B) in the array to get A + B = target.
             </li>
