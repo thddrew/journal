@@ -13,9 +13,10 @@ const sortedPosts = getSortedPosts(allPosts);
 <Layout title={title}>
   <main>
     <h1 class="text-3xl text-primary">{title}</h1>
+    <div class="h-12"></div>
     <ul
       role="list"
-      class="not-prose space-y-3 lg:space-y-6"
+      class="not-prose space-y-3 lg:space-y-6 -inset-6 relative group"
     >
       {
         sortedPosts.map((post) => (

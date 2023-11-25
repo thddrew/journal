@@ -20,7 +20,7 @@ const NavMenuItem = ({
 }) => (
   <NavigationMenuLink
     className={cn(
-      "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+      "block transition-all select-none space-y-1 rounded-md p-3 leading-none hover:bg-slate-800/50 hover:text-accent-foreground hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] hover:drop-shadow-lg motion-reduce:transition-none group-hover:opacity-60 hover:!opacity-100"
     )}
     href={href}
   >
@@ -57,23 +57,23 @@ export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="p-3 min-w-[350px] w-max max-w-[100dvw]">
+            <ul className="p-3 min-w-[350px] w-max max-w-[100dvw] group">
               {recentPosts.map((post) => (
                 <li key={post.frontmatter.title}>
                   <NavMenuItem href={`/posts/${post.frontmatter.link}`}>
                     <div className="flex items-center gap-3">
-                      <div
+                      {/* <div
                         style={{
                           backgroundImage: `url(${post.frontmatter.image.url})`,
                         }}
                         className="bg-center bg-cover bg-no-repeat h-[60px] w-[60px] shrink-0"
-                      ></div>
+                      ></div> */}
                       {/* For accessibility and SEO? */}
-                      <img
+                      {/* <img
                         src={post.frontmatter.image.url}
                         className="hidden"
                         alt={post.frontmatter.image.alt}
-                      />
+                      /> */}
                       <div>
                         <p className="leading-tight">
                           {post.frontmatter.title}
