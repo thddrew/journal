@@ -12,13 +12,13 @@ interface Props {
 const { href, title, date, body, src, alt } = Astro.props;
 ---
 
-<li
-  class="p-6 rounded-md transition-all block select-none space-y-1 leading-none dark:hover:bg-slate-800/50 hover:bg-slate-100/50 hover:text-accent-foreground hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] hover:drop-shadow-lg motion-reduce:transition-none group-hover:opacity-60 hover:!opacity-100"
->
-  <a href={href}>
-    <div class="flex gap-3 lg:gap-10">
-      {/* For accessibility and SEO? */}
-      <!-- <img
+<li>
+  <a
+    href={href}
+    class="block p-6 rounded-md transition-all select-none space-y-1 leading-none dark:hover:bg-slate-800/50 hover:bg-slate-100/50 hover:text-accent-foreground hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] hover:drop-shadow-lg motion-reduce:transition-none group-hover:opacity-60 hover:!opacity-100"
+  >
+    {/* For accessibility and SEO? */}
+    <!-- <img
         src={src}
         class="hidden"
         alt={alt}
@@ -30,28 +30,29 @@ const { href, title, date, body, src, alt } = Astro.props;
         class="rounded-md shrink-0 bg-center bg-cover bg-no-repeat w-[80px] h-[80px] md:w-[120px] md:h-[120px] lg:w-[225px] lg:h-[225px]"
       >
       </div> -->
-      <div class="space-y-3">
+    <div class="space-y-3 w-full">
+      <div class="flex gap-6 items-center justify-between">
         <h2 class="tex-base font-bold mb-1">
           {title}
         </h2>
+        <span class="block h-[1px] flex-1 bg-slate-800"></span>
         <time class="text-sm text-muted-foreground">
           {
             new Date(date).toLocaleDateString("en-US", {
               year: "numeric",
-              month: "long",
+              month: "short",
               day: "numeric",
             })
           }
         </time>
-        <br />
-        <p class="text-muted-foreground line-clamp-4">
-          {body}
-        </p>
-        <!-- <Fragment
+      </div>
+      <p class="text-muted-foreground">
+        {body}
+      </p>
+      <!-- <Fragment
           class="text-muted-foreground"
           set:html={body}
         /> -->
-      </div>
     </div>
   </a>
 </li>

@@ -30,7 +30,7 @@ const NavMenuItem = ({
 
 export function AppNavMenu({ recentPosts }: { recentPosts: PostsGlob }) {
   return (
-    <NavigationMenu className="mx-auto py-6 md:py-8 not-prose">
+    <NavigationMenu className="mx-auto pt-6 md:pt-8 mb-6 md:mb-8 not-prose">
       <NavigationMenuList className="gap-3">
         <NavigationMenuItem>
           <NavigationMenuLink
