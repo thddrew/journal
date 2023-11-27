@@ -36,7 +36,7 @@ The brute methods requires two loops checking every subarray.
         <b>Why do we not need to evaluate every possible subarray?</b>\
         There are several reasons why we do not need to evaluate every subarray.
         1. We only need the largest difference so it makes sense to subtract the largest value from the smallest value in the array.
-           But only if the left value is smaller than the right value.
+           But only if the left value is smaller than the right value since we only sell for profit.
            This means when we find a new minimum value, we only care about the values after that minimum value.
         2. Since we keep the left pointer as the minimum, this means as the right pointer increments, we are checking each value against the minimum.
 

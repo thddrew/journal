@@ -21,18 +21,18 @@ export const prerender = true;
         The two-pass hashtable method can be used to solve in O(2n) time, which is analyzed as O(n).
         <ul>
             <li>
-            <b>Use a hashtable to track the the value (key) and index (value) of elements we have visited.</b>\
+            <b>Use a hashtable to track the the value (key) and index (value) of numbers we have visited.</b>\
             <i>Why a hashtable?</i>\
             The hashtable can be used to lookup data in constant time.\
             \
-            <i>Why do we need to store the element and its index?</i>\
-            For each iteration, we will know the complement of the pair we are looking for. We can use the hashtable to
-            check, in constant time O(1), if we have already seen the complement.\
+            <i>Why do we need to store the number and its index?</i>\
+            For each iteration, we will know the complement number of the pair we are looking for. We can use the hashtable to
+            check, in constant time O(1), if we have already seen that number.
             </li>
             <li>
             <b>Check if the complement exists in the hashtable.</b>\
             <i>Why the complement?</i>\
-            We are looking for pairs A and B where A + B = target. The hashtable is basically storing either the A or B of a pair.\
+            We are looking for pairs A and B where A + B = target. The hashtable is basically storing either the A or B of a pair.
             ```
             Record<number, number>
             ---

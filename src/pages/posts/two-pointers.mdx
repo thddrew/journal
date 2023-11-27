@@ -15,7 +15,10 @@ export const prerender = true;
 Key points:
 <ul>
     <li>
-    Fast/slow pointers are useful for finding middle/cycle because an object moving at 2x speed will eventually catch up to an object moving at 1x speed.
+    Fast/slow pointers are useful for finding a cycle in a list because an object moving at 2x speed will catch up to an object moving at 1x speed, when it has traveled the length of the list.
+    </li>
+    <li>
+    Subsequently, when the fast pointer has reached the end of the list, the slow power will be at the halfway point.
     </li>
     <li>
     In left/right pointers, we can evaluate two values in one pass. A sorted array helps us determine which pointer to move since moving the left will increase the value and the right will decrease the pointer's value.
