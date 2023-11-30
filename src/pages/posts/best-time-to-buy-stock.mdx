@@ -8,7 +8,7 @@ author: 'thddrew'
 image:
     url: 'https://i.imgur.com/ltV7CEu.png'
     alt: 'An 8 bit style wave emoji.'
-tags: ["leetcode", "learning"]
+tags: ["leetcode", "two-pointers", "array"]
 ---
 export const prerender = true;
 
@@ -27,8 +27,9 @@ The brute methods requires two loops checking every subarray.
         <b>Why do we use two pointers?</b>\
         Using two pointers allows us to evaluate two values at one time (we need the difference between two values).
         Along with the difference, it can also keep track of the minimum value in the array.\
-        This question is simply asking us to find the biggest difference between two values:\
-        ```
+        This question is simply asking us to find the biggest difference between two values:
+
+        ```typescript
         array[j] - array[i]` where `i < j`
         ```
     </li>
@@ -40,27 +41,27 @@ The brute methods requires two loops checking every subarray.
            This means when we find a new minimum value, we only care about the values after that minimum value.
         2. Since we keep the left pointer as the minimum, this means as the right pointer increments, we are checking each value against the minimum.
 
-            ```
-                Array: [2, 5, 7, 6, ...]
-                        ^        ^
-                       left    right
+            ```typescript
+            Array: [2, 5, 7, 6, ...]
+                    ^        ^
+                    left    right
 
-                ex. 6 - 2 = 4 ❌
-                    7 - 5 = 2 ❌
-                    7 - 2 = 5 ✅ (index 2 - index 0)
+            ex. 6 - 2 = 4 ❌
+                7 - 5 = 2 ❌
+                7 - 2 = 5 ✅ (index 2 - index 0)
             ```
         3. Because the above are true, when the right pointer meets a new minimum, we can make that the new left pointer and check the values after since we can't look back in time.
 
-            ```
-                Array: [3, 4, 5, 6, 1, 7, 8, 9]
-                        ^           ^
-                       left       right
+            ```typescript
+            Array: [3, 4, 5, 6, 1, 7, 8, 9]
+                    ^           ^
+                    left       right
 
-                // right < left so we move left to right.
+            // right < left so we move left to right.
 
-                Array: [3, 4, 5, 6, 1, 7, 8, 9]
-                                    ^  ^
-                                 left  right
+            Array: [3, 4, 5, 6, 1, 7, 8, 9]
+                                ^  ^
+                                left  right
             ```
     </li>
 </ul>

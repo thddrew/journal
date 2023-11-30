@@ -1,0 +1,105 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: Product of Array Except Self
+link: product-of-array-except-self
+pubDate: 2023-11-26
+description: 'Reviewing the "Product of Array Except Self" problem.'
+author: 'thddrew'
+image:
+    url: 'https://i.imgur.com/ltV7CEu.png'
+    alt: 'An 8 bit style wave emoji.'
+tags: ["leetcode", "pre-computation", "array"]
+---
+export const prerender = true;
+
+<i>
+Make sure to implement the brute force solution first.\
+The brute force solution is to run two loops and multiple all elements except the current element.
+</i>
+
+The question requires a linear O(n) time complexity solution without using the division operator.
+
+<details>
+    <summary><b>Why do they specify not to use the division operator?</b></summary>
+    <blockquote>
+    I suspect its to force us to consider the pre-computation method.
+    </blockquote>
+</details>
+
+The pre-computation method is to calculate and store the product of elements before and after a given index.
+This can be done with a single loop each.
+Note: the first index in the before array is always 1 because there are no elements before it.
+And the last index in the after array is always 1 because there are no elements after it.
+
+<details>
+    <summary><b>How do we know we need to use pre-computation?</b></summary>
+    <blockquote>
+    We know the naive, brute force method requires us to iterate through the array for each number.
+    A thought I had was, what if we could store the products beforehand? Kind of like the hashmap used in two sum.
+    </blockquote>
+</details>
+
+```typescript
+[1, 2, 3, 4] // our array
+
+[
+    1 (none),
+    1 (1),
+    2 (2 * 1),
+    6 (3 * 2 * 1),
+] // product of elements before index
+
+[
+    24 (4 * 3 * 2),
+    12 (4 * 3),
+    4  (4),
+    1  (none),
+] // product of elements after index
+```
+
+Now, given an index we know what the product of numbers before and after the index are.
+This allows us to build the final array of complete products.
+
+```typescript
+[
+    24 (1 * 24),
+    12 (1 * 12),
+    8  (2 * 4),
+    6  (6 * 1),
+] // product of elements before and after index
+```
+
+One optimization we can make is to use a single array to store the before, after, answer products.
+
+The technique is that after we build the before array, we iterate the array backwards, keep track of the after product,
+and calculate the final product because we will know both the before and after product.
+
+<details>
+    <summary><b>Why do we need to iterate backwards?</b></summary>
+    <blockquote>
+        Iterating backwards allows us to calculate the after product sequentially and simultaneously calculate the final product.
+    </blockquote>
+</details>
+
+Note: the last index of the final array will always be the last index of the before array. This is because there are
+no elements after the last index to multiply the before product by. (See the solution above this optimization)
+
+```typescript
+[1, 2, 3, 4] // our array `nums`
+[1, 1, 2, 6] // before array
+
+// iterate the array backwards and calculate the final product in place
+// we can start at the second last index because the after product of the last index is always 1
+/**
+ * Steps:
+ * suffix initially starts as last element in nums
+ * answer[index] = before[index] * suffix
+ * suffix *= currentNum
+ */
+[
+    24, // suffix is 24; before[0] * suffix = 1 * 24 = 24;
+    12, // suffix is 12; before[1] * suffix = 1 * 12 = 12; then suffix *= nums[1] = 12 * 2 = 24
+    8,  // suffix starts at nums[3] 4; before[2] * suffix = 2 * 4 = 8; then suffix *= nums[2] = 4 * 3 = 12
+    6,  // fixed
+]
+```
