@@ -27,41 +27,48 @@ The question requires a linear O(n) time complexity solution without using the d
 </details>
 
 The pre-computation method is to calculate and store the product of elements before and after a given index.
-This can be done with a single loop each.
-Note: the first index in the before array is always 1 because there are no elements before it.
-And the last index in the after array is always 1 because there are no elements after it.
+This can be done with a single loop each and we refer to them as prefix and suffix arrays.
+
+Note: the first index in the prefix array is always 1 because there are no elements before it and multiplying by 1 will not change the product.
+And the last index in the suffix array is always 1 because there are no elements after it.
 
 <details>
-    <summary><b>How do we know we need to use pre-computation?</b></summary>
+    <summary><b>How do we know when we need pre-computation?</b></summary>
     <blockquote>
-    We know the naive, brute force method requires us to iterate through the array for each number.
-    A thought I had was, what if we could store the products beforehand? Kind of like the hashmap used in two sum.
+        One way we can tell is that the answer involves using multiple elements in one output ex. the products.
+        We know the naive, brute force method requires us to iterate through the array for each number.
+        A thought I had was, what if we could store the products beforehand? Kind of like the hashmap used in two sum.
+
+        Iterate once to store the prefix products `{ [index] : prefixProduct }`\
+        Iterate again to store the suffix products `{ [index] : suffixProduct }` (done in reverse) \
+        Then iterate a third time to build the final array of products.
+        ```typescript
+        [
+            prefix[0] * suffix[0],
+            prefix[1] * suffix[1],
+            prefix[2] * suffix[2],
+            prefix[3] * suffix[3],
+        ]
+        ```
+
+        The below method in this post is a bit more efficient because we can build the final array of products in place and don't need 2 hashmaps.
     </blockquote>
 </details>
 
 ```typescript
 [1, 2, 3, 4] // our array
 
-[
-    1 (none),
-    1 (1),
-    2 (2 * 1),
-    6 (3 * 2 * 1),
-] // product of elements before index
+[1 (none = 1), 1 (1), 2 (1 * 2), 6 (1 * 2 * 3)] // product of elements before an index
 
-[
-    24 (4 * 3 * 2),
-    12 (4 * 3),
-    4  (4),
-    1  (none),
-] // product of elements after index
+[24 (2 * 3 * 4), 12 (3 * 4), 4 (4), 1 (none = 1)] // product of elements after an index
 ```
 
-Now, given an index we know what the product of numbers before and after the index are.
+Given an index, we know what the product of numbers before and after the index are.
 This allows us to build the final array of complete products.
 
 ```typescript
 [
+    // answer[i] (prefix[i] * suffix[i])
     24 (1 * 24),
     12 (1 * 12),
     8  (2 * 4),
@@ -69,20 +76,18 @@ This allows us to build the final array of complete products.
 ] // product of elements before and after index
 ```
 
-One optimization we can make is to use a single array to store the before, after, answer products.
+One optimization we can make is to use a single array to store the prefix and calculate the suffix, and answers in place.
 
-The technique is that after we build the before array, we iterate the array backwards, keep track of the after product,
-and calculate the final product because we will know both the before and after product.
+The technique is that after we build the prefix array, we iterate the original array backwards, keep track of the suffix product,
+and calculate the final product because we will know both the prefix and suffix product of each index.
 
 <details>
     <summary><b>Why do we need to iterate backwards?</b></summary>
     <blockquote>
-        Iterating backwards allows us to calculate the after product sequentially and simultaneously calculate the final product.
+        Iterating backwards allows us to calculate the suffix products for an index without iterating the tail end of the array each time.
+        Its the same principle as building the prefix array except in reverse.
     </blockquote>
 </details>
-
-Note: the last index of the final array will always be the last index of the before array. This is because there are
-no elements after the last index to multiply the before product by. (See the solution above this optimization)
 
 ```typescript
 [1, 2, 3, 4] // our array `nums`
