@@ -1,0 +1,130 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: Maximum Subarray Review
+link: maximum-subarray
+pubDate: 2023-12-23
+description: 'Reviewing the "Maximum Subarray" problem.'
+author: 'thddrew'
+image:
+    url: 'https://i.imgur.com/ltV7CEu.png'
+    alt: 'An 8 bit style wave emoji.'
+tags: ["leetcode", "kadane", "subarray", "array"]
+---
+export const prerender = true;
+
+<i>
+Make sure to implement the brute force solution first.\
+The brute methods requires two loops checking every subarray.
+</i>
+
+<details>
+<summary>Brute Force Solution (TLE)</summary>
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    // Brute force solution
+    let sum = Number.NEGATIVE_INFINITY;
+
+    for (let i = 0; i < nums.length; i++) {
+        let localSum = nums[i];
+        if (localSum > sum) sum = localSum
+
+        for (let j = i + 1; j < nums.length; j++) {
+            localSum += nums[j]
+            if (localSum > sum) sum = localSum
+        }
+    }
+
+    return sum
+};
+```
+</details>
+
+<blockquote>
+    I don't think most people come up with this algorithm on their own? I did not. I knew intuitively that we could
+    reuse some previous summations, like a precomputation tactic, but I didn't realize it was dynamic programming.
+</blockquote>
+
+### Kadane's Algorithm (Dynamic Programming)
+- O(n) time because it has to iterate through all elements at most once.
+- O(1) space complexity because we only have to hold onto the current iteration's sum and the max sum.
+
+### tl;dr
+Reuse the largest sum of previous subarrays so that at every iteration, we're only comparing two things:
+- the current element
+- the current element + the largest sum of the previous subarrays
+
+```javascript
+// Input:
+[-2, 1, -3, 4, -1, 2] // length N
+```
+
+Let's build a relationship between the largest sum and the subarrays using the full array.
+
+How can we determine if `[-2, 1, -3, 4, -1, 2]` is the largest sum? We'd have to compare it to the largest sum found within all its possible subarrays.
+
+All the possible subarrays are: `[-2, 1, -3, 4, -1]`\
+*(we removed 2 from the back but you can instead remove -2 from the front since we need contiguous subarrays)*
+
+How can we determine the largest sum in `[-2, 1, -3, 4, -1]`? We'd have to compare it to the largest sum found within its subarrays.
+
+The largest sum of all its subarrays can be found by comparing them. All the possible subarrays are within this subarray `[-2, 1, -3, 4]`
+
+...
+
+Can you see the pattern?
+
+If we start from the very beginning...
+
+```javascript
+// Input:
+[-2, 1, -3, 4, -1, 2] // length N
+
+[-2] // is our first subarray and thus our largest sum so far is (-2) which we'll name Global Largest Sum (GLS)
+[-2, 1] // is one of our next subarrays
+
+// However, we know that in [-2, 1], we already solved
+// what the largest sum of all the previous subarrays ([-2]) are
+// (it's -2, the GLS)
+
+// And the only thing we need to compare now is whether that GLS
+// is bigger than the new subarrays [1] and [-2, 1] === GLS + 1. This case is true for every iteration.
+// We compare 1 and (-2 + 1). 1 is greater AND also greater than the previous largest sum (-2).
+// So our new largest sum so far is 1.
+
+[-2, 1, -3] // is one of our next subarrays
+// We already solved the largest sum of all possible previous subarrays
+// ex. [-2], [1], [-2, 1]
+// Now we only need to compare the GLS to the new subarrays [-3] and [-2, 1, -3] === [GLS + (-3)]
+```
+
+<details>
+<summary>Full Solution</summary>
+```javascript
+/**
+ * @param {number[]} nums 1 <= nums.length <= 105
+ * @return {number}
+ */
+const maxSubArray = (nums) => {
+    // Kadane's Algorithm
+    let GLS = nums[0]; // Global Largest Sum
+    let PLS = nums[0]; // Previous Largest Sum
+    // There's at least 1 element so we'll assume that as the largest sum.
+    for (let i = 1; i < nums.length; i++) {
+        PLS = Math.max(PLS + nums[i], nums[i])
+        // at this point PLS is greater of [i], [PLS(i - 1), i]
+
+        if (PLS > GLS) GLS = PLS
+    }
+
+    return GLS
+};
+```
+</details>
+
+
+
